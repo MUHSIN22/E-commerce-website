@@ -12,124 +12,23 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Shopping cart</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    
 
-    <section class="for-card">
+
+    <section class="products mt-5">
         <div class="row">
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="image">
-                        <img src="https://cdn.vox-cdn.com/thumbor/v97OD-MBgNjw8p5crApucVs9RB8=/0x0:2050x1367/1800x1800/filters:focal(1025x684:1026x685)/cdn.vox-cdn.com/uploads/chorus_asset/file/22022572/bfarsace_201106_4269_012.0.jpg" alt="....">
-                    </div>
-                    <div class="product-name">
-                        <h6>IPhone 11</h6>
-                    </div>
-                    <div class="price">
-                        <h6>RS 5000</h6>
-                    </div>
-                    <div class="buy">
-                        <button>Add to cart</button>
-                        <button>Buy now</button>
-                    </div>
+            {{#each products}}
+            <div class="card" style="width: 18rem;">
+                <img src="{{this.image}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="price" style="font-weight: bolder;text-align: left;">{{this.price}}</h5>
+                    <p class="card-text" style="font-weight: bold; text-align: left;">{{this.name}}</p>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="image">
-                        <img src="" alt="....">
-                    </div>
-                    <div class="price">
-                        <h6>RS 5000</h6>
-                    </div>
-                    <div class="buy">
-                        <button>Add to cart</button>
-                        <button>Buy now</button>
-                    </div>
+                <div class="add-btn">
+                    <a href="#" class="btn btn-primary">Add to cart</a>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="image">
-                        <img src="" alt="....">
-                    </div>
-                    <div class="price">
-                        <h6>RS 5000</h6>
-                    </div>
-                    <div class="buy">
-                        <button>Add to cart</button>
-                        <button>Buy now</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="image">
-                        <img src="" alt="....">
-                    </div>
-                    <div class="price">
-                        <h6>RS 5000</h6>
-                    </div>
-                    <div class="buy">
-                        <button>Add to cart</button>
-                        <button>Buy now</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="image">
-                        <img src="" alt="....">
-                    </div>
-                    <div class="price">
-                        <h6>RS 5000</h6>
-                    </div>
-                    <div class="buy">
-                        <button>Add to cart</button>
-                        <button>Buy now</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="image">
-                        <img src="https://d3nevzfk7ii3be.cloudfront.net/igi/o4OjCNmNeOhvsS1P.large" alt="....">
-                    </div>
-                    <div class="product-name">
-                        <h6>I Phone</h6>
-                    </div>
-                    <div class="price">
-                        <h6>RS 5000</h6>
-                    </div>
-                    <div class="buy">
-                        <button>Add to cart</button>
-                        <button>Buy now</button>
-                    </div>
-                </div>
-            </div>
+            </div>    
+            {{/each}}
         </div>
     </section>
 
