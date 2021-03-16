@@ -1,0 +1,77 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* Card section design started*/
+
+.for-card {
+  display: flex;
+  justify-content: center;
+}
+.col-md-3 {
+	width: 25%;
+	display: flex;
+	align-items: stretch;
+	justify-content: center;
+}
+.for-card .row{
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+}
+.for-card .row .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 16em;
+  margin-top: 5em;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(51, 51, 49, 0.5);
+  padding: 1em 0;
+  text-align: left;
+}
+.for-card .row .card img{
+  width: 15em;
+  height: 15em;
+  border-radius: 5px;
+}
+.for-card .row .card .price {
+  width: 92%;
+  text-align: left;
+}
+.for-card .row .card .price h6{
+  font-weight: bold;
+  text-align: left;
+  font-size: larger;
+}
+.for-card .row .card .buy {
+  display: flex;
+  justify-content: space-between;
+  width: 92%;
+}
+.for-card .row .card .buy button {
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(24, 24, 124);
+  color: white;
+  font-weight: bold;
+  padding: 0.3em;
+  width: 6em;
+  transition: 0.3s ease-in-out;
+}
+.for-card .row .card .buy button:hover {
+  background-color: rgb(57, 57, 138);
+}
+.for-card .row .card .product-name{
+  margin-top: 0.5em;
+  width: 90%;
+}
+.for-card .row .card .product-name h6{
+  text-align: left;
+  font-weight: bold;
+}
+
+/* Card section design comlpleted */
