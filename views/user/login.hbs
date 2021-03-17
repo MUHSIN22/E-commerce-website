@@ -1,0 +1,22 @@
+<section class="login-form">
+    <div class="login-title">
+        <h1>Login</h1>
+    </div>
+    <form action="/login" method="POST">
+        {{#if loginErr}}
+        <p class="text-danger">Invalid username or password</p>
+        {{/if}}
+        <label for="">Email address</label>
+        <input type="text" name="email" class="form-control">
+        <label for="">Password</label>
+        <input type="password" name="password" class="form-control">
+        <div class="btn-area">
+            <div class="no-account">
+                <a href="/signup">Haven't account?</a>
+            </div>
+            <div class="btn-sur">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </form>
+</section>

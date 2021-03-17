@@ -40,3 +40,17 @@
 .products .row .card .add-btn {
     padding: 10px;
 }
+.navbar-collapse{
+    display: flex;
+    justify-content: space-between;
+}
+.navbar-collapse .btns{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 9%;
+}
+.navbar-collapse .btns h6{
+    font-weight: bold;
+    color: white;
+}
