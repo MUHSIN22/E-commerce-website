@@ -34,8 +34,11 @@ router.get('/signup',(req,res) => {
 })
 router.post('/signup',(req,res) => {
   console.log(req.body)
-  userHelpers.doSignup(req.body).then((res) => {
-    console.log(res);
+  userHelpers.doSignup(req.body).then((response) => {
+    console.log(response);
+    req.session.loggedIn = true
+    req.session.user = response
+    res.redirect('/')
   })
 })
 router.post('/login',(req,res) => {
@@ -59,4 +62,7 @@ router.get('/cart',verifyLogin,(req,res) => {
     res.render('user/cart')
 })
 
+router.get('/add-to-cart/:id', (req,res) => {
+  userHelpers.add-to-CaretPosition(req.param.id)
+})
 module.exports = router;
