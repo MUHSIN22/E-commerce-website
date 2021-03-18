@@ -1,15 +1,16 @@
 <section style="display: flex; flex-direction: column; align-items: center;">
     <div class="container mt-5" style="display: flex; flex-direction: column; align-items: center;">
         <div class="col-md-6">
-            <h1 style="text-align: center;">Add products</h1>
-            <form action="/admin/add-product" method="POST" enctype="multipart/form-data">
+            <h1 style="text-align: center;">Edit products</h1>
+            <form action="/admin/edit-product/{{product._id}}" method="POST" enctype="multipart/form-data">
                 <label for="">Name</label>
-                <input type="text" name="name" class="form-control">
+                <input type="text" name="name"  class="form-control" value="{{product.name}}">
                 <label for="">Price</label>
-                <input type="text" name="price" class="form-control">
+                <input type="text" name="price" class="form-control" value="{{product.price}}">
                 <label for="">Description</label>
-                <input type="text" name="description" class="form-control">
+                <textarea type="text" name="description" rows="3" class="form-control" style="resize: none;">{{product.description}}</textarea>
                 <label for="">Image</label>
+                <img src="/images/product-images/{{product._id}}.jpg" alt="" style="height: 8em; width: 8em;">
                 <input type="file" name="image" class="form-control">
                 <button type="submit" class="btn btn-success mt-4">Submit</button>
             </form>
