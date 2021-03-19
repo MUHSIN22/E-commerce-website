@@ -11,11 +11,12 @@
             </thead>
             <tbody>
                 {{#each products}}
-                <tr>
+                <tr>{{#each this.product}}
                     <td><img src="images/product-images/{{this._id}}.jpg" style="width: 5em;height: 5em;" alt=""></td>
                     <td>{{this.name}}</td>
                     <td>{{this.price}}</td>
-                    <td><button class="btn btn-danger">-</button> 1 <button class="btn btn-success">+</button></td>
+                    {{/each}}
+                    <td><button class="btn btn-danger" onclick="productDecreament('{{this.item}}')">-</button><span id="product-add"> {{this.quantity}} </span><button class="btn btn-success" onclick="productAdd('{{this.item}}')">+</button></td>
                     <td><a href="/remove-cart-product/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you want to remove {{this.name}}?')">Remove</a></td>
                 </tr>
                 {{/each}}

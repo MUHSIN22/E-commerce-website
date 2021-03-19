@@ -79,23 +79,24 @@ module.exports = {
                     $match: {user : ObjectId(userId)}
                 },
                 {
+                    $unwind : '$products'
+                },
+                {
+                    $project : {
+                        item:'$products.item',
+                        quantity:'$products.quantity'
+                    }
+                },
+                {
                     $lookup:{
-                        from:collection.PRODUCT_COLLECTION,
-                        let:{proList:'$products'},
-                        pipeline:[
-                            {
-                                $match:{
-                                    $expr:{
-                                        $in:['$_id','$$proList']
-                                    }
-                                }
-                            }
-                        ],
-                        as:"cartItems"
+                        from : collection.PRODUCT_COLLECTION,
+                        localField : 'item',
+                        foreignField : '_id',
+                        as:'product'
                     }
                 }
             ]).toArray()
-            resolve(cartItems[0].cartItems)
+            resolve(cartItems)
         })
     },
     getCartCount : (userId) => {
@@ -108,5 +109,5 @@ module.exports = {
                 resolve(count);
         })
         
-    }
+    },
 }
