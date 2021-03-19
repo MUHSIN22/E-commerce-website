@@ -10,9 +10,10 @@
                     <p class="card-text" style="font-weight: lighter; text-align: left;">{{this.name}}</p>
                 </div>
                 <div class="add-btn">
-                    <a href="/add-to-cart/{{this._id}}" class="btn btn-primary">Add to cart</a>
+                    <button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add to cart</button>
                 </div>
             </div>    
             {{/each}}
         </div>
     </section>
+

@@ -1,3 +1,25 @@
 <section>
-    <h1>this is cart</h1>
+    <div class="container">
+        <table class="table mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <tr>
+                    <td><img src="images/product-images/{{this._id}}.jpg" style="width: 5em;height: 5em;" alt=""></td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.price}}</td>
+                    <td><button class="btn btn-danger">-</button> 1 <button class="btn btn-success">+</button></td>
+                    <td><a href="/remove-cart-product/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you want to remove {{this.name}}?')">Remove</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
 </section>
