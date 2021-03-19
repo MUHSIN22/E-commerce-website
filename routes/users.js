@@ -17,6 +17,7 @@ router.get('/', function(req, res, next) {
   let user = req.session.user
   console.log(user)
   productHelper.getAllProducts().then((products)=> {
+    // console.log(products);
     res.render('user/view-products', { title: 'Shopping cart',products,admin:false , user});
   })
   
@@ -58,11 +59,19 @@ router.get('/logout',(req,res) => {
   req.session.destroy();
   res.redirect('/login');
 })
-router.get('/cart',verifyLogin,(req,res) => {
-    res.render('user/cart')
+router.get('/cart',verifyLogin,async (req,res) => {
+    let products = await userHelpers.getCartProducts(req.session.user._id)
+    let user = req.session.user;
+    let allProduct = await productHelper.getAllProducts();
+    console.log(allProduct);
+    console.log(products)
+    res.render('user/cart',{user})
 })
 
-router.get('/add-to-cart/:id', (req,res) => {
-  userHelpers.add-to-CaretPosition(req.param.id)
+router.get('/add-to-cart/:id',verifyLogin, (req,res) => {
+  userHelpers.addToCart(req.params.id,req.session.user._id).then(() => {
+    console.log('added to cart = '+req.params.id+"userId="+req.session.user._id);
+    res.redirect('/')
+  })
 })
 module.exports = router;
