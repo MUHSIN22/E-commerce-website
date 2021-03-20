@@ -23,10 +23,10 @@
                     <td>{{this.product.name}}</td>
                     <td>₹{{this.product.price}}</td>
                     <td style="display: flex;"><button class="btn btn-danger"
-                            onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)"
+                            onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1,'{{this.product.price}}')"
                             style="width: 30px;height: 30px;margin-right: 5px;display: flex;justify-content: center;align-items: center; ">-</button><span
                             id="{{this.product._id}}"> {{this.quantity}} </span><button class="btn btn-success"
-                            onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)"
+                            onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1,'{{this.product.price}}')"
                             style="width: 30px;height: 30px; margin-left: 6px;display: flex;justify-content: center;align-items: center;">+</button>
                     </td>
                     <td><a class="btn btn-danger"
@@ -37,7 +37,7 @@
         </table>
         <hr>
         <div style="display: flex;width: 100%;flex-direction: column;align-items: flex-end;">
-            <h3>Total: ₹{{totalAmount}}</h3>
+            <h3>Total: ₹<span id="total-amount">{{totalAmount}}</span></h3>
             <a href="/place-order" class="btn btn-success" style="width: 13%;">Place order</a>
         </div>
     </div>
@@ -45,8 +45,9 @@
 </section>
 
 <script>
-    function changeQuantity(cartId, proId, count) {
+    function changeQuantity(cartId, proId, count,price) {
         let quantity = parseInt(document.getElementById(proId).innerHTML)
+        let totalAmount = parseInt(document.getElementById('total-amount').innerHTML)
         count = parseInt(count)
         $.ajax({
             url: '/change-product-quantity',
@@ -64,6 +65,13 @@
                     location.reload()
                 } else {
                     document.getElementById(proId).innerHTML = quantity + count
+                    if(count == 1){
+                        totalAmount = totalAmount+ parseInt(price)
+                        document.getElementById('total-amount').innerHTML = totalAmount
+                    }else{
+                        totalAmount = totalAmount - parseInt(price)
+                        document.getElementById('total-amount').innerHTML = totalAmount
+                    }
                 }
             }
         })
