@@ -1,7 +1,8 @@
 <section>
     {{#if cartEmpty}}
     <div style="display: flex;justify-content: center;align-items: center; height: 100vh;" class="container">
-        <h1 style="color: red; text-align: center;">Cart is Empty!!<span><br><a href="/" style="text-decoration: none;text-align: center; ">Add products to cart</a></span></h1>
+        <h1 style="color: red; text-align: center;">Cart is Empty!!<span><br><a href="/"
+                    style="text-decoration: none;text-align: center; ">Add products to cart</a></span></h1>
     </div>
     {{else}}
     <div class="container">
@@ -17,58 +18,66 @@
             <tbody>
                 {{#each products}}
                 <tr>
-                    <td><img src="images/product-images/{{this.product._id}}.jpg" style="width: 5em;height: 5em;" alt=""></td>
+                    <td><img src="images/product-images/{{this.product._id}}.jpg" style="width: 5em;height: 5em;"
+                            alt=""></td>
                     <td>{{this.product.name}}</td>
                     <td>₹{{this.product.price}}</td>
-                    <td style="display: flex;"><button class="btn btn-danger" onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)" style="width: 30px;height: 30px;margin-right: 5px;display: flex;justify-content: center;align-items: center; ">-</button><span id="{{this.product._id}}"> {{this.quantity}} </span><button class="btn btn-success" onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)" style="width: 30px;height: 30px; margin-left: 6px;display: flex;justify-content: center;align-items: center;">+</button></td>
-                    <td><a class="btn btn-danger" onclick="removeProduct('{{this._id}}','{{this.product._id}}')">Remove</a></td>
+                    <td style="display: flex;"><button class="btn btn-danger"
+                            onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)"
+                            style="width: 30px;height: 30px;margin-right: 5px;display: flex;justify-content: center;align-items: center; ">-</button><span
+                            id="{{this.product._id}}"> {{this.quantity}} </span><button class="btn btn-success"
+                            onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)"
+                            style="width: 30px;height: 30px; margin-left: 6px;display: flex;justify-content: center;align-items: center;">+</button>
+                    </td>
+                    <td><a class="btn btn-danger"
+                            onclick="removeProduct('{{this._id}}','{{this.product._id}}')">Remove</a></td>
                 </tr>
                 {{/each}}
             </tbody>
         </table>
         <hr>
         <div style="display: flex;width: 100%;flex-direction: column;align-items: flex-end;">
-                <h3>Total: ₹10000</h3>
-                <a href="/place-order" class="btn btn-success" style="width: 13%;">Place order</a>
+            <h3>Total: ₹{{totalAmount}}</h3>
+            <a href="/place-order" class="btn btn-success" style="width: 13%;">Place order</a>
         </div>
     </div>
     {{/if}}
 </section>
 
 <script>
-    function changeQuantity(cartId,proId,count){
+    function changeQuantity(cartId, proId, count) {
         let quantity = parseInt(document.getElementById(proId).innerHTML)
         count = parseInt(count)
         $.ajax({
-            url:'/change-product-quantity',
-            data:{
-                cart:cartId,
-                product:proId,
-                count:count,
-                quantity:quantity
+            url: '/change-product-quantity',
+            data: {
+                cart: cartId,
+                product: proId,
+                count: count,
+                quantity: quantity
             },
-            method:'post',
-            success:(response)=> {
+            method: 'post',
+            success: (response) => {
                 console.log(response)
-                if(response.removeProduct){
+                if (response.removeProduct) {
                     alert("Product Removed from cart")
                     location.reload()
-                }else{
-                    document.getElementById(proId).innerHTML =  quantity + count
+                } else {
+                    document.getElementById(proId).innerHTML = quantity + count
                 }
             }
         })
     }
-    function removeProduct(cartId,proId){
+    function removeProduct(cartId, proId) {
         $.ajax({
-            url : '/remove-cart-product',
-            data : {
-                cart : cartId,
-                product : proId
+            url: '/remove-cart-product',
+            data: {
+                cart: cartId,
+                product: proId
             },
-            method : 'post',
-            success : (response) => {
-                if(response.status){
+            method: 'post',
+            success: (response) => {
+                if (response.status) {
                     alert("product removed from cart")
                     location.reload()
                 }
