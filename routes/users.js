@@ -1,5 +1,6 @@
 const { response } = require('express');
 var express = require('express');
+const { resolve } = require('promise');
 var router = express.Router();
 var productHelper = require('../helpers/product-helpers')
 const userHelpers = require('../helpers/user-helpers')
@@ -65,14 +66,18 @@ router.get('/logout',(req,res) => {
 router.get('/cart',verifyLogin,async(req,res) => {
     let products = await userHelpers.getCartProducts(req.session.user._id)
     let user = req.session.user;
-    console.log(products)
+    // console.log(products)
     res.render('user/cart' ,{products,user})
 })
 
 router.get('/add-to-cart/:id',verifyLogin, (req,res) => {
-  console.log("api call")
   userHelpers.addToCart(req.params.id,req.session.user._id).then(() => {
-    console.log('added to cart = '+req.params.id+"userId="+req.session.user._id);
+    res.json({status:true})
+  })
+})
+router.post('/change-product-quantity',(req,res,next)=> {
+  console.log(req.body)
+  userHelpers.changeProductQuantity(req.body).then(()=>{
     res.json({status:true})
   })
 })

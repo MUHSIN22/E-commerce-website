@@ -11,12 +11,11 @@
             </thead>
             <tbody>
                 {{#each products}}
-                <tr>{{#each this.product}}
-                    <td><img src="images/product-images/{{this._id}}.jpg" style="width: 5em;height: 5em;" alt=""></td>
-                    <td>{{this.name}}</td>
-                    <td>{{this.price}}</td>
-                    {{/each}}
-                    <td><button class="btn btn-danger" onclick="productDecreament('{{this.item}}')">-</button><span id="product-add"> {{this.quantity}} </span><button class="btn btn-success" onclick="productAdd('{{this.item}}')">+</button></td>
+                <tr>
+                    <td><img src="images/product-images/{{this.product._id}}.jpg" style="width: 5em;height: 5em;" alt=""></td>
+                    <td>{{this.product.name}}</td>
+                    <td>{{this.product.price}}</td>
+                    <td><button class="btn btn-danger" onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)">-</button><span id="count-change"> {{this.quantity}} </span><button class="btn btn-success" onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)">+</button></td>
                     <td><a href="/remove-cart-product/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you want to remove {{this.name}}?')">Remove</a></td>
                 </tr>
                 {{/each}}
@@ -24,3 +23,26 @@
         </table>
     </div>
 </section>
+
+<script>
+    function changeQuantity(cartId,proId,count){
+        $.ajax({
+            url:'/change-product-quantity',
+            data:{
+                cart:cartId,
+                product:proId,
+                count:count
+            },
+            method:'post',
+            success:(response)=> {
+                if(response.status){
+                    count = parseInt(count);
+                    console.log(count)
+                    let element = $('#count-change').html()
+                    element = parseInt(element)+1;
+                    $('#count-change').html(element)
+                }
+            }
+        })
+    }
+</script>
