@@ -65,9 +65,17 @@ router.get('/logout',(req,res) => {
 })
 router.get('/cart',verifyLogin,async(req,res) => {
     let products = await userHelpers.getCartProducts(req.session.user._id)
+    let cartEmpty
+    if(products.length == 0){
+      cartEmpty = true;
+    }else{
+      cartEmpty = false
+    }
+    console.log(products);
+    console.log(cartEmpty);
     let user = req.session.user;
     // console.log(products)
-    res.render('user/cart' ,{products,user})
+    res.render('user/cart' ,{products,user,cartEmpty})
 })
 
 router.get('/add-to-cart/:id',verifyLogin, (req,res) => {
@@ -77,8 +85,16 @@ router.get('/add-to-cart/:id',verifyLogin, (req,res) => {
 })
 router.post('/change-product-quantity',(req,res,next)=> {
   console.log(req.body)
-  userHelpers.changeProductQuantity(req.body).then(()=>{
+  userHelpers.changeProductQuantity(req.body).then((response)=>{
+    res.json(response)
+  })
+})
+router.post('/remove-cart-product',(req,res,next) => {
+  userHelpers.removeProduct(req.body).then((response)=>{
     res.json({status:true})
   })
+})
+router.get('/place-order',(req,res) => {
+  res.render('user/order')
 })
 module.exports = router;

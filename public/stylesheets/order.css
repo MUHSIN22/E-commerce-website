@@ -1,0 +1,44 @@
+.order-main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+
+}
+.order{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.order .left-section{
+    width: 50%;
+}
+.order .left-section h1{
+    font-weight: bold;
+    font-size: larger;
+  
+}
+.order .right-section .right-box {
+    border: none;
+    border-radius: 8px;
+    padding: 3em;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+.order .right-section .payment-method h6{
+    margin: 1em 0em;
+}
+.order .right-section .payment-method .radio{
+    display: flex;
+    margin-top: 0.5em;
+}
+.order .right-section .payment-method .radio h6{
+    margin-left: 0.3em;
+}
+.order .right-section .payment-method .btn-div{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1em;
+}
