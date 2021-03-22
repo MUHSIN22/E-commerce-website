@@ -199,8 +199,14 @@ module.exports = {
                 },
                 userId:ObjectId(order.user),
                 paymentMethod:order.method,
-                products:products
+                products:products,
+                total : total,
+                status : status
             }
+            db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response) => {
+                db.get().collection(collection.CART_COLLECTION).removeOne({user:ObjectId(order.user)})
+                resolve()
+            })
         })
     },
     getCartProductList : (userId) => {
