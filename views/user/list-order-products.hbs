@@ -1,0 +1,57 @@
+<section class="main-section">
+    {{#each orderProducts}}
+    <div class="box">
+        <div class="name">
+            <h5>{{this.product.name}}</h5>
+        </div>
+        <div class="quantity">
+            <h5>Quantity = {{this.quantity}}</h5>
+        </div>
+        <div class="delivery-date">
+            <h5>Expected delivery on 22.11.2002</h5>
+        </div>
+        <div class="image">
+            <img src="/images/product-images/{{this.item}}.jpg" alt="">
+        </div>
+    </div>
+    {{/each}}
+</section>
+
+<style>
+    .main-section {
+        width: 100%;
+        justify-content: space-evenly;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .main-section .box {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 85%;
+        padding: 2em .5em;
+        border: 1.5px solid rgba(0,0,0,0.1);
+        margin-top: 5em;
+        border-radius: 8px;
+        box-shadow:1px 1px 10px  rgba(0,0,0,0.2);
+    }
+    .main-section .box img{
+        width: 50px;
+        height: 50px;
+    }
+    .main-section .box .name{
+        width: 50%;
+    }
+    .main-section .box .delivery-date {
+        width: 30%;
+    }
+    .main-section .box .quantity,.main-section .box .image {
+        width: 10%;
+    }
+    .main-section .box .delivery-date ,.main-section .box .quantity,.main-section .box .image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>

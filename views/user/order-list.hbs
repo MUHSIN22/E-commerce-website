@@ -1,0 +1,26 @@
+<section>
+    <div class="container">
+        <table class="table mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Date of order</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Payment method</th>
+                    <th scope="col">Order status</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each orders}}
+                <tr>
+                    <td>{{this.date}}</td>
+                    <td>{{this.total}}</td>
+                    <td>{{this.paymentMethod}}</td>
+                    <td>{{this.status}}</td>
+                    <td><a href="/list-order-products/{{this._id}}" class="btn btn-primary">More Details</a></td
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>

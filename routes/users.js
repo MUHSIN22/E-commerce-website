@@ -110,5 +110,14 @@ router.post('/place-order',async(req,res) => {
 router.get('/order-placed',(req,res) => {
   res.render('user/orderPlaced')
 })
+router.get('/order-list',verifyLogin, async(req,res) => {
+  let orders = await userHelpers.getOrders(req.session.user._id)
+  console.log(orders);
+  res.render('user/order-list',{orders,user: req.session.user})
+})
+router.get('/list-order-products/:id',verifyLogin, async (req,res) => {
+  let orderProducts = await userHelpers.getOrderedProducts(req.params.id)
+  res.render('user/list-order-products',{orderProducts,user:req.session.user})
+})
 module.exports = router;
 

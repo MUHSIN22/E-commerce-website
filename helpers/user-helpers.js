@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const ObjectId = require('mongodb').ObjectID;
 const { response } = require('express');
 const { ObjectID } = require('mongodb');
+const { resolve } = require('promise');
 
 module.exports = {
     doSignup: (userData) => {
@@ -201,7 +202,8 @@ module.exports = {
                 paymentMethod:order.method,
                 products:products,
                 total : total,
-                status : status
+                status : status,
+                date : new Date()
             }
             db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response) => {
                 db.get().collection(collection.CART_COLLECTION).removeOne({user:ObjectId(order.user)})
@@ -213,6 +215,47 @@ module.exports = {
         return new Promise(async (resolve,reject) => {
             let cart = await db.get().collection(collection.CART_COLLECTION).findOne({user:ObjectId(userId)})
             resolve(cart.products)
+        })
+    },
+    getOrders : (userId) => {
+        return new Promise(async(resolve,reject) => {
+            let orders = await db.get().collection(collection.ORDER_COLLECTION).find({userId:ObjectId(userId)}).toArray()
+            resolve(orders)
+        })
+    },
+    getOrderedProducts: (orderId) => {
+        return new Promise(async (resolve, reject) => {
+            let products = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {
+                    $match: {_id : ObjectId(orderId)}
+                },
+                {
+                    $unwind : '$products'
+                },
+                {
+                    $project : {
+                        item:'$products.item',
+                        quantity:'$products.quantity'
+                    }
+                },
+                {
+                    $lookup:{
+                        from : collection.PRODUCT_COLLECTION,
+                        localField : 'item',
+                        foreignField : '_id',
+                        as:'product'
+                    }
+                },
+                {
+                    $project:{
+                        item:1,
+                        quantity:1,
+                        product:{$arrayElemAt:['$product',0]}
+                    }
+                }
+            ]).toArray()
+            console.log(products);
+            resolve(products)
         })
     }
 }
