@@ -44,19 +44,68 @@
         </form>
     </div>
 </section>
-
 <script>
     $("#checkout-form").submit((e) => {
-    e.preventDefault()
-    $.ajax({
-        url:'/place-order',
-        method:'post',
-        data:$('#checkout-form').serialize(),
-        success : (response) => {
-            if(response.status){
-                location.href = '/order-placed'
+        e.preventDefault()
+        $.ajax({
+            url: '/place-order',
+            method: 'post',
+            data: $('#checkout-form').serialize(),
+            success: (response) => {
+                if (response.codSuccess) {
+                    location.href = '/order-placed'
+                } else {
+                    console.log('razorpaymnet started...............................................................')
+                    razorpayPayment(response)
+                }
             }
-        }
+        })
     })
-})
+    function razorpayPayment(order) {
+        console.log('in pay ', order.id, order.amount)
+        var options = {
+            "key": 'rzp_test_yvVAYeNLtfadPJ',
+            "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Texki",
+            "description": "Test Transaction",
+            "image": "images/product-images/605446c42d7da26a9111f584.jpg",
+            "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+                console.log(response)
+                verifyPayment(response, order)
+            },
+            "prefill": {
+                "name": "Muhsin Neyyathur",
+                "email": "muhsinny333@gmail.com",
+                "contact": "8606113002"
+            },
+            "notes": {
+                "address": "Puthanathani malappuram"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+    function verifyPayment(payment, order) {
+        console.log('in verify')
+        $.ajax({
+            url: '/verify-payment',
+            data: {
+                payment,
+                order
+            },
+            method: 'post',
+            success : (respose) => {
+                if(respose.status){
+                    location.href = '/order-placed'
+                }else{
+                    alert('payment failed')
+                }
+            }
+        })
+    }
 </script>
